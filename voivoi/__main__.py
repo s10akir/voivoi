@@ -1,5 +1,4 @@
 import datetime
-import random
 from flask import Flask, Response, request
 from pyvcroid2 import VcRoid2
 from .models.voiceroid import Voiceroid
