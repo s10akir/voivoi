@@ -1,3 +1,4 @@
+import os
 import random
 from pyvcroid2 import VcRoid2
 from werkzeug import exceptions
@@ -8,6 +9,8 @@ class Voiceroid:
         self.vc = VcRoid2()
         self.loadVoice(voice)
         self.loadLanguage(language)
+        self.reloadWordDictionary()
+        self.reloadPhraseDictionary()
 
     def loadVoice(self, voice):
         if voice is not None:
@@ -32,6 +35,32 @@ class Voiceroid:
                 raise exceptions.BadRequest(f"{language} is not available in language.")
         else:
             self.vc.loadLanguage(random.choice(self.vc.listLanguages()))
+
+    def reloadWordDictionary(self):
+        dict_path = os.path.join(
+            os.path.expanduser("~"), r"Documents\\VOICEROID2\\単語辞書\\user.wdic"
+        )
+
+        try:
+            self.vc.reloadWordDictionary(dict_path)
+        except Exception as err:
+            # NOTE: * 辞書が存在しない
+            #       * VOICEROID2 エディタが起動中に辞書をロードしようとする
+            #       などで発生するので握りつぶす
+            pass
+
+    def reloadPhraseDictionary(self):
+        dict_path = os.path.join(
+            os.path.expanduser("~"), r"Documents\\VOICEROID2\\フレーズ辞書\\user.pdic"
+        )
+
+        try:
+            self.vc.reloadPhraseDictionary(dict_path)
+        except Exception as err:
+            # NOTE: * 辞書が存在しない
+            #       * VOICEROID2 エディタが起動中に辞書をロードしようとする
+            #       などで発生するので握りつぶす
+            pass
 
     def tts(self, text):
         if text is None:
