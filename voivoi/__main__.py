@@ -14,15 +14,28 @@ def index():
     return {"mesage": "Hello World!"}
 
 
-@app.route("/info")
-def info():
+@app.route("/voices")
+def voices():
     """
-    /info
-    return avaiable voices and languages.
+    /voices
+
+    return avaiable voices.
     """
     vc = VcRoid2()
 
-    return {"voices": vc.listVoices(), "languages": vc.listLanguages()}
+    return {"voices": vc.listVoices()}
+
+
+@app.route("/languages")
+def languages():
+    """
+    /languages
+
+    return avaiable languages.
+    """
+    vc = VcRoid2()
+
+    return {"languages": vc.listLanguages()}
 
 
 @app.route("/tts", methods=["GET"])
