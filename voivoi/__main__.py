@@ -40,9 +40,12 @@ def languages():
 
 @app.route("/tts", methods=["GET"])
 def tts():
-    voice = request.args.get("voice")
-    language = request.args.get("language")
+    vc = VcRoid2()
+
+    voice = request.args.get("voice") or vc.listVoices()[0]
+    language = request.args.get("language") or vc.listLanguages()[0]
     text = request.args.get("text")
+    del vc  # NOTE: 明示的にインスタンス破棄しないと pyvcroid2 から ResultCode.ALREADY_INITIALIZED が raise される
 
     vc = Voiceroid(voice, language)
     speech, _ = vc.tts(text)
