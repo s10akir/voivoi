@@ -1,5 +1,5 @@
 import datetime
-from flask import Flask, Response, request
+from flask import Flask, Response, request, render_template
 from pyvcroid2 import VcRoid2
 from .models.voiceroid import Voiceroid
 
@@ -11,7 +11,13 @@ def index():
     """
     /
     """
-    return {"mesage": "Hello World!"}
+    vc = VcRoid2()
+
+    return render_template(
+        "index.html",
+        voices=vc.listVoices(),
+        languages=vc.listLanguages()
+    )
 
 
 @app.route("/voices")

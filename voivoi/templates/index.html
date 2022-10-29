@@ -1,0 +1,39 @@
+{% extends "_layout.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="py-2">
+    <h1>voi-voi</h1>
+    <p>voi-voi is voiceroid text-to-speech server.</p>
+  </div>
+
+  <div class="py-2 row">
+    <div class="col-md-6 py-2">
+      <h2>Available Voices</h2>
+      <ul>
+        {% for voice in voices %}
+        <li>{{ voice }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="col-md-6 py-2">
+      <h2>Available Languages</h2>
+      <ul>
+        {% for language in languages %}
+        <li>{{ language }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <div class="py-2">
+    <h2>Try it out.</h2>
+    <p>
+      e.g.: '/tts?text="voivoi is voiceroid text-to-speech server."
+      <br />
+      <a class="btn btn-primary" href="/tts?text='voivoi is voiceroid text-to-speech server.'">generate voice</a>
+    </p>
+  </div>
+</div>
+{% endblock %}
